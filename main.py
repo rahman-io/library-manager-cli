@@ -48,7 +48,7 @@ def main():
                 print("No books found.")
             else:
                 for b in results:
-                    b.display_info()
+                    print(b.display_info())
 
         elif choice == "4":
             if not library.books:
