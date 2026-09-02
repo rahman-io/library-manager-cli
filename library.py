@@ -22,7 +22,10 @@ class Library:
     def search_book(self, keyword):
         results = []
         for b in self.books:
-            if keyword.lower() in b.title.lower() or keyword.lower() in b.author.lower():
+            keyword_lower = keyword.lower()
+            if (keyword_lower in b.title.lower()
+                    or keyword_lower in b.author.lower()
+                    or keyword_lower in b.isbn):
                 results.append(b)
         return results
 
