@@ -59,7 +59,7 @@ def main():
 
         elif choice == "5":
             library.save_books("books.json")
-            print("Books saved. Goodbye!")
+            print("All your books have been safely saved. See you next time!")
             break
 
         else:
