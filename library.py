@@ -47,3 +47,13 @@ class Library:
         for item in data:
             book = Book(item["title"], item["author"], item["year"], item["isbn"])
             self.books.append(book)
+
+    def borrow_book(self, isbn):
+        for b in self.books:
+            if b.isbn == isbn:
+              if b.is_borrowed:
+                  raise ValueError(f"Book with ISBN {isbn} is already borrowed.")
+              b.is_borrowed = True
+              return
+
+        raise ValueError(f"No book found with ISBN {isbn}.")

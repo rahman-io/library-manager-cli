@@ -92,3 +92,39 @@ def test_load_books_restores_books_from_file():
     assert new_library.books[0].title == "The Hobbit"
 
     os.remove("test_load.json")
+
+def test_borrow_book_marks_book_as_borrowed():
+    # Arrange: set up a new library, add one book that is not yet borrowed
+    library = Library()
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+    library.add_book(book)
+
+    # Act: borrow that book via borrow_book()
+
+    library.borrow_book("9780439708180")
+
+    # Assert: check that the book's is_borrowed is now True
+    assert book.is_borrowed is True
+
+def test_borrow_book_with_already_borrowed_raises_error():
+    # Arrange: set up a new library, add one book, and borrow it once so it becomes already borrowed
+    library = Library()
+
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+    library.add_book(book)
+
+    library.borrow_book("9780439708180")
+
+    # Act & Assert: try to borrow the same book again, expect a ValueError to be raised
+    with pytest.raises(ValueError):
+        library.borrow_book("9780439708180")
+
+def test_borrow_book_with_missing_isbn_raises_error():
+    # Arrange: set up a new library (it can be empty, or have books with different ISBNs)
+    library = Library()
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+    library.add_book(book)
+
+    # Act & Assert: try to borrow a book using an ISBN that doesn't exist, expect a ValueError to be raised
+    with pytest.raises(ValueError):
+        library.borrow_book("9780439708182")
