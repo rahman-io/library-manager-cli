@@ -104,25 +104,20 @@ def test_borrow_book_marks_book_as_borrowed():
     library.borrow_book("9780439708180")
 
     # Assert: check that the book's is_borrowed is now True
-    assert book.is_borrowed == True
-
+    assert book.is_borrowed is True
 
 def test_borrow_book_with_already_borrowed_raises_error():
     # Arrange: set up a new library, add one book, and borrow it once so it becomes already borrowed
-    ## Setup library
     library = Library()
 
-    ## Create and add book(s)
     book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
     library.add_book(book)
 
-    ## Borrow a book
     library.borrow_book("9780439708180")
 
     # Act & Assert: try to borrow the same book again, expect a ValueError to be raised
     with pytest.raises(ValueError):
         library.borrow_book("9780439708180")
-
 
 def test_borrow_book_with_missing_isbn_raises_error():
     # Arrange: set up a new library (it can be empty, or have books with different ISBNs)
