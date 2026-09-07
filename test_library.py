@@ -128,3 +128,37 @@ def test_borrow_book_with_missing_isbn_raises_error():
     # Act & Assert: try to borrow a book using an ISBN that doesn't exist, expect a ValueError to be raised
     with pytest.raises(ValueError):
         library.borrow_book("9780439708182")
+
+def test_return_book_marks_book_as_returned():
+    # Arrange: set up a new library, add one book, and borrow it first so it becomes borrowed
+    library = Library()
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+    library.add_book(book)
+    library.borrow_book("9780439708180")
+
+    # Act: return that book via return_book()
+    library.return_book("9780439708180")
+
+    # Assert: check that the book's is_borrowed is now False
+    assert book.is_borrowed is False
+
+def test_return_book_with_missing_isbn_raises_error():
+    # Arrange: set up a new library and add one book.
+    library = Library()
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+
+    library.add_book(book)
+
+    # Act & Assert: try to return a book using ISBN that doesn't exist, expect a ValueError to be raised.
+    with pytest.raises(ValueError):
+        library.return_book("9780439708181")
+
+def test_return_book_with_not_borrowed_yet_raises_error():
+    # Arrange: set up library and add one book.
+    library = Library()
+    book = Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780439708180")
+    library.add_book(book)
+
+    # Act & Assert: try to return a book using ISBN that exist in library, expect a ValueError to be raised.
+    with pytest.raises(ValueError):
+        library.return_book("9780439708180")
