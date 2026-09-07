@@ -15,7 +15,8 @@ def main():
         print("3. Search book")
         print("4. List all books")
         print("5. Borrow book")
-        print("6. Save and exit")
+        print("6. Return book")
+        print("7. Save and exit")
 
         choice = input("Choose an option: ")
 
@@ -68,6 +69,15 @@ def main():
                 print(e)
 
         elif choice == "6":
+            isbn = input("ISBN to return: ")
+
+            try:
+                library.return_book(isbn)
+                print("Book returned successfully.")
+            except ValueError as e:
+                print(e)
+
+        elif choice == "7":
             library.save_books("books.json")
             print(f"{len(library.books)} book(s) saved. See you next time!")
             break
